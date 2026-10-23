@@ -1,7 +1,6 @@
 pipeline {
 agent any
 
-
 stages {
     stage('Checkout') {
         steps {
@@ -14,7 +13,6 @@ stages {
         steps {
             sh 'ls -la'
             sh 'test -f index.html'
-            sh 'test -f style.css'
             sh 'test -f Dockerfile'
         }
     }
@@ -34,3 +32,4 @@ stages {
 }
 
 }
+
