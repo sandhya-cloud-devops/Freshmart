@@ -1,0 +1,37 @@
+pipeline {
+agent any
+
+```
+stages {
+    stage('Checkout') {
+        steps {
+            git branch: 'main',
+                url: 'https://github.com/sandhya-cloud-devops/FreshMart.git'
+        }
+    }
+
+    stage('Validate') {
+        steps {
+            sh 'ls -la'
+            sh 'test -f index.html'
+            sh 'test -f style.css'
+            sh 'test -f Dockerfile'
+        }
+    }
+
+    stage('Build Docker Image') {
+        steps {
+            sh 'docker build -t freshmart-app:1.0 .'
+        }
+    }
+
+    stage('Deploy Container') {
+        steps {
+            sh 'docker rm -f freshmart-container || true'
+            sh 'docker run -d --name freshmart-container -p 8082:80 freshmart-app:1.0'
+        }
+    }
+}
+```
+
+}
